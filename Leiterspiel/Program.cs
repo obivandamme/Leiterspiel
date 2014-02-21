@@ -15,7 +15,7 @@ namespace Leiterspiel
         }
     }
 
-    class Game
+    public class Game
     {
         int CurrentPlayerNumber = -1;
         Player CurrentPlayer;
@@ -64,7 +64,7 @@ namespace Leiterspiel
             do
             {
                 Console.WriteLine(string.Format("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", CurrentPlayerNumber, CurrentPlayer.Position));
-                drawstring = Console.ReadKey().KeyChar.ToString();
+                drawstring = Console.ReadLine();
 
             } while (!int.TryParse(drawstring, out draw) || (draw < 1 || draw > 6));
 
@@ -84,7 +84,7 @@ namespace Leiterspiel
         }
     }
 
-    class Board
+    public class Board
     {
         public int Zeilen { get; set; }
         public int Spalten { get; set; }
@@ -128,7 +128,7 @@ namespace Leiterspiel
         }
     }
 
-    class Player
+    public class Player
     {
         public int Position { get; set; }
     }
