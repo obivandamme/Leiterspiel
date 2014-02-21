@@ -1,28 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leiterspiel
 {
-    public class PlayerManager
+    public class PlayerManager : List<Player>
     {
         int currentPlayerNumber = -1;
-        Player currentPlayer;
-        readonly List<Player> players = new List<Player>();
+
+        Player CurrentPlayer
+        {
+            get
+            {
+                return this[currentPlayerNumber];
+            }
+        }
 
         public void NextPlayer()
         {
-            this.currentPlayerNumber = (this.currentPlayerNumber + 1) % this.players.Count;
-            this.currentPlayer = this.players[this.currentPlayerNumber];
+            this.currentPlayerNumber = (this.currentPlayerNumber + 1) % this.Count;
         }
 
         public void AddPlayers(int numberOfPlayers)
         {
             for (var i = 0; i < numberOfPlayers; i++)
             {
-                this.players.Add(new Player());
+                this.Add(new Player());
             }
         }
 
@@ -34,17 +36,17 @@ namespace Leiterspiel
 
         public void PrintPlayerStatus()
         {
-            Console.WriteLine("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.currentPlayer.Position);
+            Console.WriteLine("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.CurrentPlayer.Position);
         }
 
-        public bool HasWon(Board board)
+        public bool HasWinner(Board board)
         {
-            return this.currentPlayer.HasWon(board.GetSize());
+            return this.CurrentPlayer.HasWon(board.GetSize());
         }
 
         public void CalculateStep(Board board, int draw)
         {
-            this.currentPlayer.Position = board.CalculateNewPosition(this.currentPlayer.Position + draw);
+            this.CurrentPlayer.Position = board.CalculateNewPosition(this.CurrentPlayer.Position + draw);
         }
     }
 }

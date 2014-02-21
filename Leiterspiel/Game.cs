@@ -4,8 +4,7 @@
 
     public class Game
     {
-        readonly Board board;
-
+        private readonly Board board;
         private readonly PlayerManager playerManager;
 
         public Game(Board board)
@@ -16,33 +15,38 @@
 
         public void Start()
         {
-            this.Initialize();
-            this.playerManager.NextPlayer();
-            while (!this.PlayStep())
+            this.PrintWelcomeMessage();
+            this.InitializePlayers();
+            do
             {
                 this.playerManager.NextPlayer();
+                this.PlayStep();
             }
+            while (!this.IsGameOver());
             this.playerManager.PrintWinner();
-        }
-
-        private void Initialize()
-        {
-            this.board.PrintDescription();
-            this.PrintWelcomeMessage();
-            this.playerManager.AddPlayers(int.Parse(Console.ReadLine()));
-            
         }
 
         private void PrintWelcomeMessage()
         {
+            this.board.PrintDescription();
             Console.WriteLine("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
         }
 
-        private bool PlayStep()
+        private void InitializePlayers()
+        {
+            this.playerManager.AddPlayers(int.Parse(Console.ReadLine()));
+
+        }
+
+        private void PlayStep()
         {
             this.playerManager.CalculateStep(this.board, this.GetDraw());
-            Console.WriteLine();
-            return this.playerManager.HasWon(this.board);
+            Console.WriteLine("");
+        }
+
+        private bool IsGameOver()
+        {
+            return this.playerManager.HasWinner(this.board);
         }
 
         private int GetDraw()
@@ -51,8 +55,9 @@
             do
             {
                 this.playerManager.PrintPlayerStatus();
+                draw = int.Parse(Console.ReadLine());
             }
-            while (!int.TryParse(Console.ReadLine(), out draw) || !IsValid(draw));
+            while (!IsValid(draw));
             return draw;
         }
 
