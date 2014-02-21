@@ -13,6 +13,10 @@
         public Game(Board board)
         {
             this.board = board;
+        }
+
+        public void Start()
+        {
             this.Initialize();
             this.NextPlayer();
             while (!this.PlayStep())

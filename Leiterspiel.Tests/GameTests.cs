@@ -21,7 +21,10 @@ namespace Leiterspiel.Tests
             Console.SetOut(new StringWriter(consoleOut));
 
             // Act
-            new Game(new Board(@"C:\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt"));
+            var board = new Board();
+            board.Load(@"C:\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt");
+            var game = new Game(board);
+            game.Start();
 
             // Assert
             Expect(consoleOut.ToString()).ToEqual(@"Spielbrett mit 5 Zeilen und 6 Spalten. Sieger ist, wer zuerst Feld 30 erreicht hat

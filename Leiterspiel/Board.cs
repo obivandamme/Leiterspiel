@@ -9,11 +9,6 @@
         public int Spalten { get; set; }
         Dictionary<int, int> Moves = new Dictionary<int, int>();
 
-        public Board(string filename)
-        {
-            this.Load(filename);
-        }
-
         public int CalculateNewPosition(int oldposition)
         {
             int j = 0;
