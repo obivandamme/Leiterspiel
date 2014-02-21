@@ -1,4 +1,4 @@
-﻿namespace Leiterspiel
+﻿namespace Leiterspiel.Core
 {
     public class Player
     {

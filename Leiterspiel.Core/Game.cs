@@ -1,15 +1,19 @@
-﻿namespace Leiterspiel
+﻿namespace Leiterspiel.Core
 {
-    using System;
+    using Leiterspiel.Core.Interactors;
 
     public class Game
     {
+        private readonly IInput input;
+        private readonly IOutput output;
         private readonly Board board;
         private readonly PlayerManager playerManager;
 
-        public Game(Board board)
+        public Game(Board board, IInput input, IOutput output)
         {
             this.board = board;
+            this.input = input;
+            this.output = output;
             this.playerManager = new PlayerManager();
         }
 
@@ -23,25 +27,25 @@
                 this.PlayStep();
             }
             while (!this.IsGameOver());
-            this.playerManager.PrintWinner();
+            this.playerManager.PrintWinner(this.output);
         }
 
         private void PrintWelcomeMessage()
         {
-            this.board.PrintDescription();
-            Console.WriteLine("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
+            this.board.PrintDescription(this.output);
+            this.output.Write("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
         }
 
         private void InitializePlayers()
         {
-            this.playerManager.AddPlayers(int.Parse(Console.ReadLine()));
+            this.playerManager.AddPlayers(this.input.Read());
 
         }
 
         private void PlayStep()
         {
             this.playerManager.CalculateStep(this.board, this.GetDraw());
-            Console.WriteLine("");
+            this.output.Write("");
         }
 
         private bool IsGameOver()
@@ -54,8 +58,8 @@
             int draw;
             do
             {
-                this.playerManager.PrintPlayerStatus();
-                draw = int.Parse(Console.ReadLine());
+                this.playerManager.PrintPlayerStatus(this.output);
+                draw = this.input.Read();
             }
             while (!IsValid(draw));
             return draw;

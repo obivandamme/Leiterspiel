@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leiterspiel", "Leiterspiel\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leiterspiel.Tests", "Leiterspiel.Tests\Leiterspiel.Tests.csproj", "{A473EA12-30D0-4EAA-9AB5-0A0C13567160}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leiterspiel.Core", "Leiterspiel.Core\Leiterspiel.Core.csproj", "{F6598B93-A731-4D31-9633-917AB35905CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{A473EA12-30D0-4EAA-9AB5-0A0C13567160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A473EA12-30D0-4EAA-9AB5-0A0C13567160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A473EA12-30D0-4EAA-9AB5-0A0C13567160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6598B93-A731-4D31-9633-917AB35905CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6598B93-A731-4D31-9633-917AB35905CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6598B93-A731-4D31-9633-917AB35905CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6598B93-A731-4D31-9633-917AB35905CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

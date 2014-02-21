@@ -1,8 +1,10 @@
-﻿namespace Leiterspiel
+﻿namespace Leiterspiel.Core
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
+
+    using Leiterspiel.Core.Interactors;
 
     public class Board
     {
@@ -39,10 +41,13 @@
             }
         }
 
-        public void PrintDescription()
+        public void PrintDescription(IOutput output)
         {
-            Console.WriteLine("Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
-                this.Zeilen, this.Spalten, this.GetSize());
+            output.Write(string.Format(
+                    "Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
+                    this.Zeilen,
+                    this.Spalten,
+                    this.GetSize()));
         }
 
         public int GetSize()

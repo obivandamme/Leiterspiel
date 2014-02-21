@@ -6,6 +6,8 @@ namespace Leiterspiel.Tests
     using System.IO;
     using System.Text;
 
+    using Leiterspiel.Core;
+
     using MSTest.Fluent;
 
     [TestClass]
@@ -23,7 +25,7 @@ namespace Leiterspiel.Tests
             // Act
             var board = new Board();
             board.Load(@"C:\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt");
-            var game = new Game(board);
+            var game = new Game(board, new ConsoleInput(), new ConsoleOutput());
             game.Start();
 
             // Assert

@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Leiterspiel.Core\Leiterspiel.Core.csproj">
+      <Project>{f6598b93-a731-4d31-9633-917ab35905ca}</Project>
+      <Name>Leiterspiel.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Leiterspiel\Leiterspiel.csproj">
       <Project>{61048408-0cb2-4324-a5df-655605fd4a81}</Project>
       <Name>Leiterspiel</Name>

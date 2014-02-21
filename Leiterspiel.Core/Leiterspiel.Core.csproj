@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{61048408-0CB2-4324-A5DF-655605FD4A81}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{F6598B93-A731-4D31-9633-917AB35905CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Leiterspiel</RootNamespace>
-    <AssemblyName>Leiterspiel</AssemblyName>
+    <RootNamespace>Leiterspiel.Core</RootNamespace>
+    <AssemblyName>Leiterspiel.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,21 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleInput.cs" />
-    <Compile Include="ConsoleOutput.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Interactors\IInput.cs" />
+    <Compile Include="Interactors\IOutput.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="leiterspielbrett1.txt" />
-    <Content Include="leiterspielbrett2.txt" />
-    <Content Include="leiterspielbrett3.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Leiterspiel.Core\Leiterspiel.Core.csproj">
-      <Project>{f6598b93-a731-4d31-9633-917ab35905ca}</Project>
-      <Name>Leiterspiel.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

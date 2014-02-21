@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Leiterspiel
+namespace Leiterspiel.Core
 {
+    using Leiterspiel.Core.Interactors;
+
     public class PlayerManager : List<Player>
     {
         int currentPlayerNumber = -1;
@@ -28,15 +29,14 @@ namespace Leiterspiel
             }
         }
 
-        public void PrintWinner()
+        public void PrintWinner(IOutput output)
         {
-            Console.WriteLine("Spieler {0} hat gewonnen!!!! Gratulation. ", this.currentPlayerNumber);
-            Console.ReadLine();
+            output.Write(string.Format("Spieler {0} hat gewonnen!!!! Gratulation. ", this.currentPlayerNumber));
         }
 
-        public void PrintPlayerStatus()
+        public void PrintPlayerStatus(IOutput output)
         {
-            Console.WriteLine("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.CurrentPlayer.Position);
+            output.Write(string.Format("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.CurrentPlayer.Position));
         }
 
         public bool HasWinner(Board board)
