@@ -5,10 +5,10 @@
 
     public class Game
     {
-        int CurrentPlayerNumber = -1;
-        Player CurrentPlayer;
-        List<Player> Players = new List<Player>();
-        Board board;
+        int currentPlayerNumber = -1;
+        Player currentPlayer;
+        readonly List<Player> players = new List<Player>();
+        readonly Board board;
 
         public Game(Board board)
         {
@@ -28,34 +28,37 @@
 
         private void Initialize()
         {
-            Console.WriteLine(string.Format("Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
-                this.board.Zeilen, this.board.Spalten, this.board.Zeilen * this.board.Spalten));
+            Console.WriteLine("Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
+                this.board.Zeilen, this.board.Spalten, this.board.Zeilen * this.board.Spalten);
 
             Console.WriteLine("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
 
-            int NumberOfPlayers = int.Parse(Console.ReadLine());
-            for (int i = 0; i < NumberOfPlayers; i++) this.Players.Add(new Player());
+            var numberOfPlayers = int.Parse(Console.ReadLine());
+            for (var i = 0; i < numberOfPlayers; i++)
+            {
+                this.players.Add(new Player());
+            }
         }
 
         private void Finalize()
         {
-            Console.WriteLine(string.Format("Spieler {0} hat gewonnen!!!! Gratulation. ", this.CurrentPlayerNumber));
+            Console.WriteLine("Spieler {0} hat gewonnen!!!! Gratulation. ", this.currentPlayerNumber);
             Console.ReadLine();
         }
 
         public void NextPlayer()
         {
-            this.CurrentPlayerNumber = (this.CurrentPlayerNumber + 1) % this.Players.Count;
-            this.CurrentPlayer = this.Players[this.CurrentPlayerNumber];
+            this.currentPlayerNumber = (this.currentPlayerNumber + 1) % this.players.Count;
+            this.currentPlayer = this.players[this.currentPlayerNumber];
         }
 
         private bool PlayStep()
         {
-            int draw = 0;
-            string drawstring = "";
+            int draw;
+            string drawstring;
             do
             {
-                Console.WriteLine(string.Format("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.CurrentPlayerNumber, this.CurrentPlayer.Position));
+                Console.WriteLine("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.currentPlayer.Position);
                 drawstring = Console.ReadLine();
 
             } while (!int.TryParse(drawstring, out draw) || (draw < 1 || draw > 6));
@@ -67,12 +70,12 @@
 
         private void CalculateStep(int draw)
         {
-            this.CurrentPlayer.Position = this.board.CalculateNewPosition(this.CurrentPlayer.Position + draw);
+            this.currentPlayer.Position = this.board.CalculateNewPosition(this.currentPlayer.Position + draw);
         }
 
         private bool HasWon()
         {
-            return this.CurrentPlayer.Position >= this.board.Zeilen * this.board.Spalten;
+            return this.currentPlayer.Position >= this.board.Zeilen * this.board.Spalten;
         }
     }
 }
