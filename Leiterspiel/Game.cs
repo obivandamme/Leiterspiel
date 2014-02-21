@@ -1,80 +1,64 @@
 ﻿namespace Leiterspiel
 {
     using System;
-    using System.Collections.Generic;
 
     public class Game
     {
-        int currentPlayerNumber = -1;
-        Player currentPlayer;
-        readonly List<Player> players = new List<Player>();
         readonly Board board;
+
+        private readonly PlayerManager playerManager;
 
         public Game(Board board)
         {
             this.board = board;
+            this.playerManager = new PlayerManager();
         }
 
         public void Start()
         {
             this.Initialize();
-            this.NextPlayer();
+            this.playerManager.NextPlayer();
             while (!this.PlayStep())
             {
-                this.NextPlayer();
+                this.playerManager.NextPlayer();
             }
-            this.Finalize();
+            this.playerManager.PrintWinner();
         }
 
         private void Initialize()
         {
             this.board.PrintDescription();
+            this.PrintWelcomeMessage();
+            this.playerManager.AddPlayers(int.Parse(Console.ReadLine()));
+            
+        }
 
+        private void PrintWelcomeMessage()
+        {
             Console.WriteLine("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
-
-            var numberOfPlayers = int.Parse(Console.ReadLine());
-            for (var i = 0; i < numberOfPlayers; i++)
-            {
-                this.players.Add(new Player());
-            }
-        }
-
-        private void Finalize()
-        {
-            Console.WriteLine("Spieler {0} hat gewonnen!!!! Gratulation. ", this.currentPlayerNumber);
-            Console.ReadLine();
-        }
-
-        public void NextPlayer()
-        {
-            this.currentPlayerNumber = (this.currentPlayerNumber + 1) % this.players.Count;
-            this.currentPlayer = this.players[this.currentPlayerNumber];
         }
 
         private bool PlayStep()
         {
+            this.playerManager.CalculateStep(this.board, this.GetDraw());
+            Console.WriteLine();
+            return this.playerManager.HasWon(this.board);
+        }
+
+        private int GetDraw()
+        {
             int draw;
-            string drawstring;
             do
             {
-                Console.WriteLine("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.currentPlayer.Position);
-                drawstring = Console.ReadLine();
-
-            } while (!int.TryParse(drawstring, out draw) || (draw < 1 || draw > 6));
-
-            this.CalculateStep(draw);
-            Console.WriteLine();
-            return this.HasWon();
+                this.playerManager.PrintPlayerStatus();
+            }
+            while (!int.TryParse(Console.ReadLine(), out draw) || !IsValid(draw));
+            return draw;
         }
 
-        private void CalculateStep(int draw)
+        private static bool IsValid(int draw)
         {
-            this.currentPlayer.Position = this.board.CalculateNewPosition(this.currentPlayer.Position + draw);
-        }
-
-        private bool HasWon()
-        {
-            return this.currentPlayer.HasWon(this.board.GetSize());
+            return (draw >= 1 && draw <= 6);
         }
     }
 }
