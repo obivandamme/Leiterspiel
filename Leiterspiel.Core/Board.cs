@@ -8,37 +8,22 @@
 
     public class Board
     {
-        public int Zeilen { get; set; }
-        public int Spalten { get; set; }
+        public int Zeilen { get; private set; }
+        public int Spalten { get; private set; }
         
         readonly Dictionary<int, int> moves = new Dictionary<int, int>();
+
+        public Board(int zeilen, int spalten, Dictionary<int, int> moves)
+        {
+            this.Zeilen = zeilen;
+            this.Spalten = spalten;
+            this.moves = moves;
+        }
 
         public int CalculateNewPosition(int oldposition)
         {
             int j;
             return this.moves.TryGetValue(oldposition, out j) ? j : oldposition;
-        }
-
-        public void Load(string filename)
-        {
-            using (TextReader f = File.OpenText(filename))
-            {
-                string line;
-                while ((line = f.ReadLine()) != null)
-                {
-                    if (line.IndexOf("=", StringComparison.Ordinal) >= 0)
-                    {
-                        var parts = line.Split('=');
-                        if (parts[0].Trim() == "Spalten") this.Spalten = int.Parse(parts[1].Trim());
-                        if (parts[0].Trim() == "Zeilen") this.Zeilen = int.Parse(parts[1].Trim());
-                        if (parts[0].Trim() == "Leiter" || parts[0].Trim() == "Schlange")
-                        {
-                            var fields = parts[1].Split(',');
-                            this.moves.Add(int.Parse(fields[0].Trim()), int.Parse(fields[1].Trim()));
-                        }
-                    }
-                }
-            }
         }
 
         public void PrintDescription(IOutput output)

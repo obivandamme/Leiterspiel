@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardLoader.cs" />
     <Compile Include="ConsoleInput.cs" />
     <Compile Include="ConsoleOutput.cs" />
     <Compile Include="Program.cs" />
