@@ -28,8 +28,7 @@
 
         private void Initialize()
         {
-            Console.WriteLine("Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
-                this.board.Zeilen, this.board.Spalten, this.board.Zeilen * this.board.Spalten);
+            this.board.PrintDescription();
 
             Console.WriteLine("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
 
@@ -75,7 +74,7 @@
 
         private bool HasWon()
         {
-            return this.currentPlayer.Position >= this.board.Zeilen * this.board.Spalten;
+            return this.currentPlayer.HasWon(this.board.GetSize());
         }
     }
 }

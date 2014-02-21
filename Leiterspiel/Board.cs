@@ -8,6 +8,7 @@
     {
         public int Zeilen { get; set; }
         public int Spalten { get; set; }
+        
         readonly Dictionary<int, int> moves = new Dictionary<int, int>();
 
         public int CalculateNewPosition(int oldposition)
@@ -36,6 +37,17 @@
                     }
                 }
             }
+        }
+
+        public void PrintDescription()
+        {
+            Console.WriteLine("Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
+                this.Zeilen, this.Spalten, this.GetSize());
+        }
+
+        public int GetSize()
+        {
+            return this.Zeilen * this.Spalten;
         }
     }
 }
