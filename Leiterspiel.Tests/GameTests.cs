@@ -23,7 +23,9 @@ namespace Leiterspiel.Tests
             Console.SetOut(new StringWriter(consoleOut));
 
             // Act
-            var game = new Game(BoardLoader.Load(@"C:\Users\MartinP\Documents\Visual Studio 2013\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt"), new ConsoleInput(), new ConsoleOutput());
+            var boardDescription = new FileBoardDescription(@"C:\Users\MartinP\Documents\Visual Studio 2013\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt");
+            var loader = new BoardLoader(boardDescription);
+            var game = new Game(loader.Load(), new ConsoleInput(), new ConsoleOutput());
             game.Start();
 
             // Assert

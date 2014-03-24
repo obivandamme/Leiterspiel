@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileBoardDescription.cs" />
     <Compile Include="BoardLoader.cs" />
     <Compile Include="ConsoleInput.cs" />
     <Compile Include="ConsoleOutput.cs" />
+    <Compile Include="IBoardDescription.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

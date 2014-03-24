@@ -6,7 +6,9 @@
     {
         static void Main(string[] args)
         {
-            var game = new Game(BoardLoader.Load(args[0]), new ConsoleInput(), new ConsoleOutput());
+            var boardDescription = new FileBoardDescription(args[0]);
+            var loader = new BoardLoader(boardDescription);
+            var game = new Game(loader.Load(), new ConsoleInput(), new ConsoleOutput());
             game.Start();
         }
     }

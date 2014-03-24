@@ -3,19 +3,25 @@
 namespace Leiterspiel
 {
     using System;
-    using System.IO;
     using System.Linq;
 
     using Leiterspiel.Core;
 
     public class BoardLoader
     {
-        public static Board Load(string filename)
+        private readonly IBoardDescription _description;
+
+        public BoardLoader(IBoardDescription description)
+        {
+            _description = description;
+        }
+
+        public Board Load()
         {
             var zeilen = 0;
             var spalten = 0;
             var moves = new Dictionary<int, int>();
-            var lines = LoadFile(filename);
+            var lines = _description.Read();
 
             foreach (var parts in from line in lines where line.IndexOf("=", StringComparison.Ordinal) >= 0 select line.Split('='))
             {
@@ -36,18 +42,6 @@ namespace Leiterspiel
             }
 
             return new Board(zeilen, spalten, moves);
-        }
-
-        private static IEnumerable<string> LoadFile(string filename)
-        {
-            using (TextReader f = File.OpenText(filename))
-            {
-                string line;
-                while ((line = f.ReadLine()) != null)
-                {
-                    yield return line;
-                }
-            }
         }
     }
 }
