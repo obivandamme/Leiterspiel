@@ -1,19 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using System.IO;
+using System.Text;
+using Leiterspiel.Core;
 
 namespace Leiterspiel.Tests
 {
-    using System.IO;
-    using System.Text;
-
-    using Leiterspiel.Core;
-
-    using MSTest.Fluent;
-
-    [TestClass]
-    public class GameTests : TestBase
+    public class GameTests
     {
-        [TestMethod]
+        [Fact]
         public void Game_BoardOneAndAllDrawsAreFour_PlayerOneShouldWin()
         {
             // Arrange
@@ -23,13 +18,14 @@ namespace Leiterspiel.Tests
             Console.SetOut(new StringWriter(consoleOut));
 
             // Act
-            var boardDescription = new FileBoardDescription(@"C:\Users\MartinP\Documents\Visual Studio 2013\Projects\Leiterspiel\Leiterspiel\leiterspielbrett1.txt");
+            var boardDescription = new FileBoardDescription(
+                @"C:\Users\pascal.martin\Documents\Leiterspiel\Leiterspiel\leiterspielbrett1.txt");
             var loader = new BoardLoader(boardDescription);
             var game = new Game(loader.Load(), new ConsoleInput(), new ConsoleOutput());
             game.Start();
 
             // Assert
-            Expect(consoleOut.ToString()).ToEqual(@"Spielbrett mit 5 Zeilen und 6 Spalten. Sieger ist, wer zuerst Feld 30 erreicht hat
+            Assert.Equal(@"Spielbrett mit 5 Zeilen und 6 Spalten. Sieger ist, wer zuerst Feld 30 erreicht hat
 Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]
 Spieler 0: Position 0. Gewürfelte Augenzahl: 
 
@@ -54,7 +50,7 @@ Spieler 1: Position 16. Gewürfelte Augenzahl:
 Spieler 0: Position 29. Gewürfelte Augenzahl: 
 
 Spieler 0 hat gewonnen!!!! Gratulation. 
-");
+", consoleOut.ToString());
         }
     }
 }

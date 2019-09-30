@@ -14,7 +14,7 @@
 
         public IEnumerable<string> Read()
         {
-            using (TextReader f = File.OpenText(this._filename))
+            using (TextReader f = File.OpenText(_filename))
             {
                 string line;
                 while ((line = f.ReadLine()) != null)

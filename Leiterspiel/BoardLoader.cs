@@ -5,7 +5,7 @@ namespace Leiterspiel
     using System;
     using System.Linq;
 
-    using Leiterspiel.Core;
+    using Core;
 
     public class BoardLoader
     {

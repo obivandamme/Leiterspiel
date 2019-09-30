@@ -2,51 +2,43 @@
 
 namespace Leiterspiel.Core
 {
-    using Leiterspiel.Core.Interactors;
+    using Interactors;
 
     public class PlayerManager : List<Player>
     {
-        int currentPlayerNumber = -1;
-
-        Player CurrentPlayer
-        {
-            get
-            {
-                return this[currentPlayerNumber];
-            }
-        }
+        private int _currentPlayerNumber = -1;
 
         public void NextPlayer()
         {
-            this.currentPlayerNumber = (this.currentPlayerNumber + 1) % this.Count;
+            _currentPlayerNumber = (_currentPlayerNumber + 1) % Count;
         }
-
+        
         public void AddPlayers(int numberOfPlayers)
         {
             for (var i = 0; i < numberOfPlayers; i++)
             {
-                this.Add(new Player());
+                Add(new Player());
             }
         }
 
         public void PrintWinner(IOutput output)
         {
-            output.Write(string.Format("Spieler {0} hat gewonnen!!!! Gratulation. ", this.currentPlayerNumber));
+            output.Write($"Spieler {_currentPlayerNumber} hat gewonnen!!!! Gratulation. ");
         }
 
         public void PrintPlayerStatus(IOutput output)
         {
-            output.Write(string.Format("Spieler {0}: Position {1}. Gewürfelte Augenzahl: ", this.currentPlayerNumber, this.CurrentPlayer.Position));
+            output.Write($"Spieler {_currentPlayerNumber}: Position {this[_currentPlayerNumber].Position}. Gewürfelte Augenzahl: ");
         }
 
         public bool HasWinner(Board board)
         {
-            return this.CurrentPlayer.HasWon(board.GetSize());
+            return this[_currentPlayerNumber].HasWon(board.GetSize());
         }
 
         public void CalculateStep(Board board, int draw)
         {
-            this.CurrentPlayer.Position = board.CalculateNewPosition(this.CurrentPlayer.Position + draw);
+            this[_currentPlayerNumber].Position = board.CalculateNewPosition(this[_currentPlayerNumber].Position + draw);
         }
     }
 }

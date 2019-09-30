@@ -6,36 +6,30 @@
 
     public class Board
     {
-        public int Zeilen { get; private set; }
-        public int Spalten { get; private set; }
-        
-        readonly Dictionary<int, int> moves = new Dictionary<int, int>();
+        private readonly int _rows;
+        private readonly int _columns;
+        private readonly Dictionary<int, int> _moves;
 
-        public Board(int zeilen, int spalten, Dictionary<int, int> moves)
+        public Board(int rows, int columns, Dictionary<int, int> moves)
         {
-            this.Zeilen = zeilen;
-            this.Spalten = spalten;
-            this.moves = moves;
+            _rows = rows;
+            _columns = columns;
+            _moves = moves;
         }
 
-        public int CalculateNewPosition(int oldposition)
+        public int CalculateNewPosition(int oldPosition)
         {
-            int j;
-            return this.moves.TryGetValue(oldposition, out j) ? j : oldposition;
+            return _moves.TryGetValue(oldPosition, out var j) ? j : oldPosition;
         }
 
         public void PrintDescription(IOutput output)
         {
-            output.Write(string.Format(
-                    "Spielbrett mit {0} Zeilen und {1} Spalten. Sieger ist, wer zuerst Feld {2} erreicht hat",
-                    this.Zeilen,
-                    this.Spalten,
-                    this.GetSize()));
+            output.Write($"Spielbrett mit {_rows} Zeilen und {_columns} Spalten. Sieger ist, wer zuerst Feld {GetSize()} erreicht hat");
         }
 
         public int GetSize()
         {
-            return this.Zeilen * this.Spalten;
+            return _rows * _columns;
         }
     }
 }

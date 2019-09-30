@@ -1,6 +1,6 @@
 ﻿namespace Leiterspiel.Core.Extensions
 {
-    static class IntegerExtensions
+    internal static class IntegerExtensions
     {
         internal static bool IsValid(this int draw)
         {

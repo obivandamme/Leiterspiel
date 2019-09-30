@@ -6,7 +6,7 @@
 
         public bool HasWon(int boardSize)
         {
-            return this.Position >= boardSize;
+            return Position >= boardSize;
         }
     }
 }

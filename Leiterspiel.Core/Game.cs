@@ -1,7 +1,7 @@
 ﻿namespace Leiterspiel.Core
 {
-    using Leiterspiel.Core.Extensions;
-    using Leiterspiel.Core.Interactors;
+    using Extensions;
+    using Interactors;
 
     public class Game
     {
@@ -12,46 +12,46 @@
 
         public Game(Board board, IInput input, IOutput output)
         {
-            this._board = board;
-            this._input = input;
-            this._output = output;
-            this._playerManager = new PlayerManager();
+            _board = board;
+            _input = input;
+            _output = output;
+            _playerManager = new PlayerManager();
         }
 
         public void Start()
         {
-            this.PrintWelcomeMessage();
-            this.InitializePlayers();
+            PrintWelcomeMessage();
+            InitializePlayers();
             do
             {
-                this._playerManager.NextPlayer();
-                this.PlayStep();
+                _playerManager.NextPlayer();
+                PlayStep();
             }
-            while (!this.IsGameOver());
-            this._playerManager.PrintWinner(this._output);
+            while (!IsGameOver());
+            _playerManager.PrintWinner(_output);
         }
 
         private void PrintWelcomeMessage()
         {
-            this._board.PrintDescription(this._output);
-            this._output.Write("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
+            _board.PrintDescription(_output);
+            _output.Write("Neues Leiterspiel. Geben Sie zuerst die Anzahl an Spielern ein. [2 .. 4]");
         }
 
         private void InitializePlayers()
         {
-            this._playerManager.AddPlayers(this._input.Read());
+            _playerManager.AddPlayers(_input.Read());
 
         }
 
         private void PlayStep()
         {
-            this._playerManager.CalculateStep(this._board, this.GetDraw());
-            this._output.Write("");
+            _playerManager.CalculateStep(_board, GetDraw());
+            _output.Write("");
         }
 
         private bool IsGameOver()
         {
-            return this._playerManager.HasWinner(this._board);
+            return _playerManager.HasWinner(_board);
         }
 
         private int GetDraw()
@@ -59,8 +59,8 @@
             int draw;
             do
             {
-                this._playerManager.PrintPlayerStatus(this._output);
-                draw = this._input.Read();
+                _playerManager.PrintPlayerStatus(_output);
+                draw = _input.Read();
             }
             while (!draw.IsValid());
             return draw;

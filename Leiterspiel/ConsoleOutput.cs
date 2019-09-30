@@ -2,8 +2,7 @@
 
 namespace Leiterspiel
 {
-    using Leiterspiel.Core;
-    using Leiterspiel.Core.Interactors;
+    using Core.Interactors;
 
     public class ConsoleOutput: IOutput
     {

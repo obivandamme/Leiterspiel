@@ -1,10 +1,10 @@
 ﻿namespace Leiterspiel
 {
-    using Leiterspiel.Core;
+    using Core;
 
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var boardDescription = new FileBoardDescription(args[0]);
             var loader = new BoardLoader(boardDescription);
